@@ -1,0 +1,34 @@
+Day 2 
+#Question 1
+year = input()
+if (year % 4) == 0:
+   if (year % 100) == 0:
+       if (year % 400) == 0:
+           print("{0} is a leap year".format(year))
+       else:
+           print("{0} is not a leap year".format(year))
+   else:
+       print("{0} is a leap year".format(year))
+else:
+   print("{0} is not a leap year".format(year))
+   
+#Question 2 
+list1 = [] 
+num = int(input("Enter number of elements in list: ")) 
+  
+for i in range(1, num + 1): 
+    ele = int(input("Enter elements: ")) 
+    list1.append(ele) 
+print("Largest element is:", max(list1)) 
+
+#question 3 
+# K-digit number divisible by X 
+  
+def answer(X, K): 
+    MAX = pow(10, K) - 1
+    return (MAX - (MAX % X)) 
+  
+X = 30;  
+K = 3;    
+print(answer(X, K));  
+   

@@ -48,3 +48,13 @@ def draw_status():
      text_rect = text.get_rect(center=(width/2, 500-50))
      screen.blit(text, text_rect)
      pg.display.update()
+
+# still left need to wrk more incomplete for now
+    def reset_game():
+        global TTT, winner,XO, draw
+        time.sleep(3)
+        XO = 'x'
+        draw = False
+        game_opening()
+        winner=None
+        TTT = [[None]*3,[None]*3,[None]*3]

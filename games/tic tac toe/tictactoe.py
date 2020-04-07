@@ -167,3 +167,5 @@ while(True):
                 reset_game()
     pg.display.update()
     CLOCK.tick(fps)
+#now cpu vs player update 
+#comming soon working on it 

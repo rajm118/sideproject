@@ -1,5 +1,21 @@
 import pygame
+from pygame.locals import (
 
+    K_UP,
+
+    K_DOWN,
+
+    K_LEFT,
+
+    K_RIGHT,
+
+    K_ESCAPE,
+
+    KEYDOWN,
+
+    QUIT,
+
+)
 pygame.init()
 carryOn = True
 clock = pygame.time.Clock()
@@ -24,6 +40,15 @@ while carryOn:
     pygame.draw.ellipse(screen, BLACK, [20, 20, 250, 100], 2)
 
     pygame.display.flip()
+    SCREEN_WIDTH = 800
+
+    SCREEN_HEIGHT = 600
+
+    # Create the screen object
+
+    # The size is determined by the constant SCREEN_WIDTH and SCREEN_HEIGHT
+
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
     clock.tick(50)
 pygame.quit()

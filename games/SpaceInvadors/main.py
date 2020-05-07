@@ -33,17 +33,21 @@ def enemy(x, y):
 
 def enemy_movement(enemyX, enemyY):
     enemy_change = 0.3
+    print(enemyX)
     enemyX += enemy_change
     if enemyX >= 750:
         enemyY += 32
+        enemyX = 50
     elif enemyX < 32:
         enemyY += 32
-    print(enemyX)
+    print("enemy " , enemyX)
+    return enemyX,enemyY
 
 running = True
 while running:
     screen.fill((0, 0, 255))
-
+    enemy(enemyX, enemyY)
+    enemyX,enemyY=enemy_movement(enemyX, enemyY)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -61,13 +65,12 @@ while running:
             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
                 print("Keystroke has been released ")
                 playerX_change = 0
+
     playerX += playerX_change
     if playerX <= 0:
         playerX = 0
     if playerX >= 768:
         playerX = 768
     player(playerX, playerY)
-    enemy(enemyX, enemyY)
-    enemy_movement(enemyX, enemyY)
     # necessary in order to update the screen else it will show previous data only
     pygame.display.update()

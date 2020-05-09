@@ -43,6 +43,21 @@ def enemy_movement(enemyX, enemyY):
     print("enemy " , enemyX)
     return enemyX,enemyY
 
+def player_movemnet(player_X,player_Y):
+    if event.type == pygame.KEYDOWN:
+        if event.key == pygame.K_LEFT:
+            print("Left arrow pressed")
+            playerX_change = -0.1
+
+        if event.key == pygame.K_RIGHT:
+            playerX_change = 0.1
+            print("Right arrow pressed")
+    if event.type == pygame.KEYUP:
+        if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
+            print("Keystroke has been released ")
+            playerX_change = 0
+
+
 running = True
 while running:
     screen.fill((0, 0, 255))

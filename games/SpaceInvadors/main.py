@@ -4,15 +4,18 @@ import random
 pygame.init()
 # create screen use tuple to initialize the size of the screen
 screen = pygame.display.set_mode((800, 600))
-
+background =pygame.image.load('background.png')
 # title and icon
 pygame.display.set_caption("Space Invaders")
 # create the variable to load the image and then use the image
 icon = pygame.image.load('technology.png')
 pygame.display.set_icon(icon)
+#Enemy
 enemyImg = pygame.image.load('enemy.png')
 enemyX = random.randint(0, 750)
 enemyY = random.randint(50, 200)
+enemyX_change = 0.3
+enemyY_change = 40
 
 # initialzing the player
 playerImg = pygame.image.load('player.png')
@@ -31,17 +34,6 @@ def enemy(x, y):
     screen.blit(enemyImg, (x, y))
 
 
-def enemy_movement(enemyX, enemyY):
-    enemy_change = 0.3
-    print(enemyX)
-    enemyX += enemy_change
-    if enemyX >= 750:
-        enemyY += 32
-        enemyX = 50
-    elif enemyX < 32:
-        enemyY += 32
-    print("enemy " , enemyX)
-    return enemyX,enemyY
 
 def player_movemnet(player_X,player_Y):
     if event.type == pygame.KEYDOWN:
@@ -61,8 +53,8 @@ def player_movemnet(player_X,player_Y):
 running = True
 while running:
     screen.fill((0, 0, 255))
+    screen.blit(background,(0,0))
     enemy(enemyX, enemyY)
-    enemyX,enemyY=enemy_movement(enemyX, enemyY)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -80,12 +72,22 @@ while running:
             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
                 print("Keystroke has been released ")
                 playerX_change = 0
-
+#Establishing boundaries for both enemy and player
     playerX += playerX_change
     if playerX <= 0:
         playerX = 0
     if playerX >= 768:
         playerX = 768
+
+    enemyX += enemyX_change
+    if enemyX <= 0:
+        enemyX_change = 0.5
+        enemyY += enemyY_change
+    if enemyX >= 768:
+        enemyX_change = -0.5
+        enemyY+= enemyY_change
+
+
     player(playerX, playerY)
     # necessary in order to update the screen else it will show previous data only
     pygame.display.update()

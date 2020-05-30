@@ -1,5 +1,6 @@
 import pygame
 import random
+import math
 
 pygame.init()
 # create screen use tuple to initialize the size of the screen
@@ -50,6 +51,12 @@ def fire_bullet(x, y):
     bullet_state = 'fire'
     screen.blit(bulletImg, (x + 16, y + 16))
 
+def isCollision(enemyX,enemyY,bulletX,bulletY):
+    distance = math.sqrt(math.pow((enemyX-bulletX),2) + math.pow((enemyY-bulletY),2))
+    if distance <= 27:
+        return True
+    else:
+        False
 
 def player_movemnet(player_X, player_Y):
     if event.type == pygame.KEYDOWN:

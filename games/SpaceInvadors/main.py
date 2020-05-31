@@ -11,13 +11,23 @@ pygame.display.set_caption("Space Invaders")
 # create the variable to load the image and then use the image
 icon = pygame.image.load('technology.png')
 pygame.display.set_icon(icon)
-# Enemy
-enemyImg = pygame.image.load('enemy.png')
-enemyX = random.randint(0, 750)
-enemyY = random.randint(50, 200)
-enemyX_change = 4
-enemyY_change = 40
 
+
+# Enemy
+enemyX=[]
+enemyY=[]
+enemyX_change = []
+enemyY_change = []
+no_of_enemy= 6
+for i in range(no_of_enemy):
+    enemyImg = pygame.image.load('enemy.png')
+    enemyX.append(random.randint(0, 750))
+    enemyY.append(random.randint(50, 200))
+    enemyX_change.append(4)
+    enemyY_change.append(10)
+
+# score
+score = 0
 # Bullet
 
 # Ready state means you can fire now
@@ -26,7 +36,7 @@ bulletImg = pygame.image.load('bullet.png')
 bulletX = 0
 bulletY = 480
 bulletX_change = 0
-bulletY_change = 40
+bulletY_change = 10
 bullet_state = 'ready'
 
 # initialzing the player
@@ -51,12 +61,14 @@ def fire_bullet(x, y):
     bullet_state = 'fire'
     screen.blit(bulletImg, (x + 16, y + 16))
 
-def isCollision(enemyX,enemyY,bulletX,bulletY):
-    distance = math.sqrt(math.pow((enemyX-bulletX),2) + math.pow((enemyY-bulletY),2))
+
+def isCollision(enemyX, enemyY, bulletX, bulletY):
+    distance = math.sqrt(math.pow((enemyX - bulletX), 2) + math.pow((enemyY - bulletY), 2))
     if distance <= 27:
         return True
     else:
         False
+
 
 def player_movemnet(player_X, player_Y):
     if event.type == pygame.KEYDOWN:
@@ -113,13 +125,22 @@ while running:
         enemyX_change = -3
         enemyY += enemyY_change
 
-    #Movement of bullet
-    if bulletY<=0:
+    # Movement of bullet
+    if bulletY <= 0:
         bulletY = 480
         bullet_state = 'ready'
-    if bullet_state== "fire":
+    if bullet_state == "fire":
         fire_bullet(bulletX, bulletY)
         bulletY -= bulletY_change
+
+    collision = isCollision(enemyX, enemyY, bulletX, bulletY)
+    if collision == True:
+        bulletY = 480
+        bullet_state = "ready"
+        score += 1
+        print(score)
+        enemyX = random.randint(0, 750)
+        enemyY = random.randint(50, 200)
 
     player(playerX, playerY)
     # necessary in order to update the screen else it will show previous data only

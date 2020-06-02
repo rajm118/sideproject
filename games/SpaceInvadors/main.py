@@ -1,11 +1,17 @@
 import pygame
 import random
 import math
+from pygame import mixer
+
 
 pygame.init()
 # create screen use tuple to initialize the size of the screen
 screen = pygame.display.set_mode((800, 600))
 background = pygame.image.load('background.png')
+
+# background Sound
+mixer.music.load('background.wav')
+mixer.music.play(-1)
 # title and icon
 pygame.display.set_caption("Space Invaders")
 # create the variable to load the image and then use the image
@@ -28,7 +34,17 @@ for i in range(no_of_enemy):
     enemyY_change.append(10)
 
 # score
-score = 0
+score_value=0
+
+#font
+font= pygame.font.Font('freesansbold.ttf',32)
+textx = 10
+texty= 10
+
+#function for text
+def show_score(x, y):
+    score = font.render("Score :"+ str(score_value),True, (255,255,255))
+    screen.blit(score,(x,y))
 # Bullet
 
 # Ready state means you can fire now
@@ -105,6 +121,8 @@ while running:
 
             if event.key == pygame.K_SPACE:
                 if bullet_state == "ready":
+                    bullet_sound =mixer.Sound('laser.wav')
+                    bullet_sound.play()
                     bulletX = playerX
                     fire_bullet(playerX, bulletY)
 
@@ -129,10 +147,12 @@ while running:
 
         collision = isCollision(enemyX[i], enemyY[i], bulletX, bulletY)
         if collision == True:
+            explosive_sound =mixer.Sound('explosion.wav')
+            explosive_sound.play()
+
             bulletY = 480
             bullet_state = "ready"
-            score += 1
-            print(score)
+            score_value += 1
             enemyX[i] = random.randint(0, 750)
             enemyY[i] = random.randint(50, 200)
 
@@ -149,4 +169,5 @@ while running:
 
     player(playerX, playerY)
     # necessary in order to update the screen else it will show previous data only
+    show_score(textx,texty)
     pygame.display.update()
